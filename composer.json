@@ -1,14 +1,9 @@
 {
   "name": "codeup/interop-mvc",
-  "description": "MVC interoperability",
   "type": "library",
-  "version": "1.0.0",
+  "description": "MVC interoperability",
+  "homepage": "https://github.com/codeup-berlin/interop-mvc",
   "license": "MIT",
-  "authors": [
-    {
-      "name": "sophie@codeup.berlin"
-    }
-  ],
   "autoload": {
     "psr-4": {
       "Codeup\\InteropMvc\\": "src"
