@@ -1,9 +1,9 @@
 <?php
-namespace Codeup\InteropMvc\Controller;
+namespace Codeup\InteropMvc\ServiceAware;
 
 use Codeup\InteropMvc\ServiceNotFoundException;
 
-class ServiceContainer implements ServiceAware
+trait InteropContainerTrait
 {
     /**
      * @var null|\Interop\Container\ContainerInterface

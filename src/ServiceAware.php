@@ -1,7 +1,5 @@
 <?php
-namespace Codeup\InteropMvc\Controller;
-
-use Codeup\InteropMvc\ServiceNotFoundException;
+namespace Codeup\InteropMvc;
 
 interface ServiceAware
 {

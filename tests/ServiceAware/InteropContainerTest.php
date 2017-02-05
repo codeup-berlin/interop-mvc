@@ -1,18 +1,18 @@
 <?php
-namespace Codeup\InteropMvc\Controller;
+namespace Codeup\InteropMvc\ServiceAware;
 
 class ContainerItemNotFoundException extends \Exception implements \Interop\Container\Exception\NotFoundException
 {
 }
 
-class ServiceAwareTest extends \PHPUnit_Framework_TestCase
+class InteropContainerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
      */
     public function hasService_withoutContainer()
     {
-        $classUnderTest = new ServiceContainer();
+        $classUnderTest = new InteropContainer();
         $this->assertFalse($classUnderTest->hasService(uniqid('someService')));
     }
 
@@ -21,7 +21,7 @@ class ServiceAwareTest extends \PHPUnit_Framework_TestCase
      */
     public function hasService_withoutService()
     {
-        $classUnderTest = new ServiceContainer();
+        $classUnderTest = new InteropContainer();
         $serviceName = uniqid('someService');
         $containerMock = $this->createMock(\Interop\Container\ContainerInterface::class);
         $containerMock->expects($this->once())->method('has')->with($serviceName)->willReturn(false);
@@ -35,7 +35,7 @@ class ServiceAwareTest extends \PHPUnit_Framework_TestCase
      */
     public function hasService_withService()
     {
-        $classUnderTest = new ServiceContainer();
+        $classUnderTest = new InteropContainer();
         $serviceName = uniqid('someService');
         $containerMock = $this->createMock(\Interop\Container\ContainerInterface::class);
         $containerMock->expects($this->once())->method('has')->with($serviceName)->willReturn(true);
@@ -50,7 +50,7 @@ class ServiceAwareTest extends \PHPUnit_Framework_TestCase
      */
     public function getService_withoutContainer()
     {
-        $classUnderTest = new ServiceContainer();
+        $classUnderTest = new InteropContainer();
         $classUnderTest->getService(uniqid('someService'));
     }
 
@@ -60,7 +60,7 @@ class ServiceAwareTest extends \PHPUnit_Framework_TestCase
      */
     public function getService_withoutService()
     {
-        $classUnderTest = new ServiceContainer();
+        $classUnderTest = new InteropContainer();
         $serviceName = uniqid('someService');
         $containerMock = $this->createMock(\Interop\Container\ContainerInterface::class);
         $containerMock->expects($this->once())->method('get')->with($serviceName)->willThrowException(
@@ -76,7 +76,7 @@ class ServiceAwareTest extends \PHPUnit_Framework_TestCase
      */
     public function getService_withService()
     {
-        $classUnderTest = new ServiceContainer();
+        $classUnderTest = new InteropContainer();
         $serviceName = uniqid('someService');
         $serviceStub = new \stdClass();
         $containerMock = $this->createMock(\Interop\Container\ContainerInterface::class);
