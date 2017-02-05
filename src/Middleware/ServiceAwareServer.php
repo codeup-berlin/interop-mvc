@@ -2,8 +2,8 @@
 namespace Codeup\InteropMvc\Middleware;
 
 use Codeup\InteropMvc\ServiceAware;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Middleware\ServerMiddlewareInterface;
 
-interface ServiceAwareServer extends MiddlewareInterface, ServiceAware
+interface ServiceAwareServer extends ServerMiddlewareInterface, ServiceAware
 {
 }
