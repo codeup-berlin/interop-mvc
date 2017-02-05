@@ -1,11 +1,12 @@
 <?php
-namespace Codeup\InteropMvc\Middleware;
+namespace Codeup\InteropMvc\Middleware\Stack\Server;
 
+use Codeup\InteropMvc\Middleware\Stack\ResponseAware;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Middleware\DelegateInterface;
 
-class RespondingArrayServerStack extends ArrayServerStack implements RespondingStack
+class ResponseAwareArraySelfDelegate extends ArraySelfDelegate implements ResponseAware
 {
     /**
      * @var null|DelegateInterface

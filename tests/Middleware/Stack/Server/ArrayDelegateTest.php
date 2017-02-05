@@ -1,5 +1,5 @@
 <?php
-namespace Codeup\InteropMvc\Middleware;
+namespace Codeup\InteropMvc\Middleware\Stack\Server;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -24,7 +24,7 @@ class MiddlewareFake implements \Psr\Http\Middleware\ServerMiddlewareInterface
     }
 }
 
-class ArrayServerStackTest extends \PHPUnit_Framework_TestCase
+class ArrayDelegateTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
@@ -36,7 +36,7 @@ class ArrayServerStackTest extends \PHPUnit_Framework_TestCase
         $requestStub = $this->createMock(\Psr\Http\Message\ServerRequestInterface::class);
         /** @var \Psr\Http\Message\ResponseInterface $responseStub */
         $responseStub = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
-        $classUnderTest = new ArrayServerStack();
+        $classUnderTest = new ArraySelfDelegate();
         $finalMiddlewareStub = $this->createMock(\Psr\Http\Middleware\ServerMiddlewareInterface::class);
         $finalMiddlewareStub->method('process')
             ->with($requestStub, $classUnderTest)
@@ -58,7 +58,7 @@ class ArrayServerStackTest extends \PHPUnit_Framework_TestCase
         // prepare
         /** @var \Psr\Http\Message\RequestInterface $requestStub */
         $requestStub = $this->createMock(\Psr\Http\Message\ServerRequestInterface::class);
-        $classUnderTest = new ArrayServerStack();
+        $classUnderTest = new ArraySelfDelegate();
         // test
         $classUnderTest->process($requestStub);
         // verified by annotation
@@ -74,7 +74,7 @@ class ArrayServerStackTest extends \PHPUnit_Framework_TestCase
         $requestStub = $this->createMock(\Psr\Http\Message\ServerRequestInterface::class);
         /** @var \Psr\Http\Message\ResponseInterface $responseStub */
         $responseStub = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
-        $classUnderTest = new ArrayServerStack();
+        $classUnderTest = new ArraySelfDelegate();
         $middlewareFake1 = new MiddlewareFake();
         $middlewareFake2 = new MiddlewareFake();
         $finalMiddlewareStub = $this->createMock(\Psr\Http\Middleware\ServerMiddlewareInterface::class);
@@ -86,7 +86,7 @@ class ArrayServerStackTest extends \PHPUnit_Framework_TestCase
         /** @var \Psr\Http\Middleware\ServerMiddlewareInterface $finalMiddlewareStub */
         /** @var \Psr\Http\Middleware\ServerMiddlewareInterface $middlewareFake2 */
         /** @var \Psr\Http\Middleware\ServerMiddlewareInterface $middlewareFake1 */
-        /** @var ArrayServerStack $classUnderTest */
+        /** @var ArraySelfDelegate $classUnderTest */
         $classUnderTest = $classUnderTest->withMiddleware($finalMiddlewareStub);
         $classUnderTest = $classUnderTest->withMiddleware($middlewareFake2);
         $classUnderTest = $classUnderTest->withMiddleware($middlewareFake1);
@@ -107,12 +107,12 @@ class ArrayServerStackTest extends \PHPUnit_Framework_TestCase
         $requestStub = $this->createMock(\Psr\Http\Message\ServerRequestInterface::class);
         /** @var \Psr\Http\Message\ResponseInterface $responseStub */
         $responseStub = $this->createMock(\Psr\Http\Message\ResponseInterface::class);
-        $classUnderTest = new ArrayServerStack();
+        $classUnderTest = new ArraySelfDelegate();
         $middlewareFake1 = new MiddlewareFake();
         $middlewareFake2 = new MiddlewareFake();
         /** @var \Psr\Http\Middleware\ServerMiddlewareInterface $middlewareFake2 */
         /** @var \Psr\Http\Middleware\ServerMiddlewareInterface $middlewareFake1 */
-        /** @var ArrayServerStack $classUnderTest */
+        /** @var ArraySelfDelegate $classUnderTest */
         $classUnderTest = $classUnderTest->withMiddleware($middlewareFake2);
         $classUnderTest = $classUnderTest->withMiddleware($middlewareFake1);
         // test

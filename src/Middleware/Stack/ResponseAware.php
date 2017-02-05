@@ -1,9 +1,9 @@
 <?php
-namespace Codeup\InteropMvc\Middleware;
+namespace Codeup\InteropMvc\Middleware\Stack;
 
 use Psr\Http\Middleware\DelegateInterface;
 
-interface RespondingStack extends \Psr\Http\Middleware\StackInterface
+interface ResponseAware extends \Psr\Http\Middleware\StackInterface
 {
     /**
      * @param \Psr\Http\Middleware\DelegateInterface $request

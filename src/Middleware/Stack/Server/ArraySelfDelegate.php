@@ -1,5 +1,5 @@
 <?php
-namespace Codeup\InteropMvc\Middleware;
+namespace Codeup\InteropMvc\Middleware\Stack\Server;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -8,7 +8,7 @@ use Psr\Http\Middleware\DelegateInterface;
 use Psr\Http\Middleware\MiddlewareInterface;
 use Psr\Http\Middleware\ServerMiddlewareInterface;
 
-class ArrayServerStack implements \Psr\Http\Middleware\StackInterface, DelegateInterface
+class ArraySelfDelegate implements \Psr\Http\Middleware\StackInterface, DelegateInterface
 {
     /**
      * @var MiddlewareInterface[]
