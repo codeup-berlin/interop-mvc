@@ -13,5 +13,5 @@ To install this library through [Composer](https://getcomposer.org/) use:
 composer require codeup/interop-mvc
 ```
 
-This library releases are versioned according [Semantic Versioning](http://semver.org/) specification to provide full
-backward compatibility between minor versions.
+~~This library releases are versioned according [Semantic Versioning](http://semver.org/) specification to provide full
+backward compatibility between minor versions.~~ [Semantic Versioning](http://semver.org/) is not applied properly for now.
