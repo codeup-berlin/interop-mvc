@@ -5,6 +5,11 @@ class ContainerItemNotFoundException extends \Exception implements \Interop\Cont
 {
 }
 
+class InteropContainerTraitConsumer
+{
+    use InteropContainerTrait;
+}
+
 class InteropContainerTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,7 +17,7 @@ class InteropContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function hasService_withoutContainer()
     {
-        $classUnderTest = new InteropContainer();
+        $classUnderTest = new InteropContainerTraitConsumer();
         $this->assertFalse($classUnderTest->hasService(uniqid('someService')));
     }
 
@@ -21,12 +26,11 @@ class InteropContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function hasService_withoutService()
     {
-        $classUnderTest = new InteropContainer();
         $serviceName = uniqid('someService');
         $containerMock = $this->createMock(\Interop\Container\ContainerInterface::class);
         $containerMock->expects($this->once())->method('has')->with($serviceName)->willReturn(false);
         /** @var \Interop\Container\ContainerInterface $containerMock */
-        $classUnderTest->setServiceContainer($containerMock);
+        $classUnderTest = new InteropContainer($containerMock);
         $this->assertFalse($classUnderTest->hasService($serviceName));
     }
 
@@ -35,11 +39,11 @@ class InteropContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function hasService_withService()
     {
-        $classUnderTest = new InteropContainer();
         $serviceName = uniqid('someService');
         $containerMock = $this->createMock(\Interop\Container\ContainerInterface::class);
         $containerMock->expects($this->once())->method('has')->with($serviceName)->willReturn(true);
         /** @var \Interop\Container\ContainerInterface $containerMock */
+        $classUnderTest = new InteropContainerTraitConsumer();
         $classUnderTest->setServiceContainer($containerMock);
         $this->assertTrue($classUnderTest->hasService($serviceName));
     }
@@ -50,7 +54,7 @@ class InteropContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function getService_withoutContainer()
     {
-        $classUnderTest = new InteropContainer();
+        $classUnderTest = new InteropContainerTraitConsumer();
         $classUnderTest->getService(uniqid('someService'));
     }
 
@@ -60,14 +64,13 @@ class InteropContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function getService_withoutService()
     {
-        $classUnderTest = new InteropContainer();
         $serviceName = uniqid('someService');
         $containerMock = $this->createMock(\Interop\Container\ContainerInterface::class);
         $containerMock->expects($this->once())->method('get')->with($serviceName)->willThrowException(
             new ContainerItemNotFoundException()
         );
         /** @var \Interop\Container\ContainerInterface $containerMock */
-        $classUnderTest->setServiceContainer($containerMock);
+        $classUnderTest = new InteropContainer($containerMock);
         $classUnderTest->getService($serviceName);
     }
 
@@ -76,12 +79,12 @@ class InteropContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function getService_withService()
     {
-        $classUnderTest = new InteropContainer();
         $serviceName = uniqid('someService');
         $serviceStub = new \stdClass();
         $containerMock = $this->createMock(\Interop\Container\ContainerInterface::class);
         $containerMock->expects($this->once())->method('get')->with($serviceName)->willReturn($serviceStub);
         /** @var \Interop\Container\ContainerInterface $containerMock */
+        $classUnderTest = new InteropContainerTraitConsumer();
         $classUnderTest->setServiceContainer($containerMock);
         $this->assertSame($serviceStub, $classUnderTest->getService($serviceName));
     }
