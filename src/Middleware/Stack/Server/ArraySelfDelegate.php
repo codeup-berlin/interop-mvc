@@ -21,6 +21,21 @@ class ArraySelfDelegate implements \Psr\Http\Middleware\StackInterface, Delegate
     protected $processingStack = null;
 
     /**
+     * ArraySelfDelegate constructor.
+     *
+     * @param \Psr\Http\Middleware\MiddlewareInterface[] $middlewares
+     */
+    public function __construct(array $middlewares = [])
+    {
+        foreach ($middlewares as $middleware) {
+            if (!($middleware instanceof ServerMiddlewareInterface)) {
+                throw new \InvalidArgumentException('ServerMiddlewareInterface request expected.');
+            }
+        }
+        $this->middlewares = $middlewares;
+    }
+
+    /**
      * Return an instance with the specified middleware added to the stack.
      * This method MUST be implemented in such a way as to retain the
      * immutability of the stack, and MUST return an instance that contains
