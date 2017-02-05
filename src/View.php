@@ -9,13 +9,13 @@ interface View
      * @param mixed $value
      * @return void
      */
-    public function __set($name, $value);
+    public function __set(string $name, $value);
 
     /**
      * @param string $name
      * @return mixed
      */
-    public function __get($name);
+    public function __get(string $name);
 
     /**
      * @return string

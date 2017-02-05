@@ -8,5 +8,12 @@
     "psr-4": {
       "Codeup\\InteropMvc\\": "src"
     }
+  },
+  "require": {
+    "php": "^7.0",
+    "container-interop/container-interop": "^1.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.7"
   }
 }
