@@ -34,4 +34,9 @@ interface View
      * @return string
      */
     public function renderView(string $viewPath);
+
+    /**
+     * @return void
+     */
+    public function disable();
 }
